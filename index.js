@@ -1,4 +1,4 @@
-import React, { Suspense } from "react";
+import React, { Suspense, useEffect } from "react";
 import ReactDOM from "react-dom";
 import { navigate, Router } from "@gatsbyjs/reach-router";
 import { initializeApp } from "firebase/app";
@@ -11,6 +11,7 @@ import { store } from "./src/store";
 import { Provider } from "react-redux";
 import AppGlobal from "./src/widgets/global";
 
+
 import App from "./src";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -19,6 +20,7 @@ import App from "./src";
 const firebaseConfig = {
 
 };
+
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
@@ -37,9 +39,10 @@ window.firebase.auth = auth
 window.firebase.analytics = analytics
 
 const root = document.getElementById("root");
+const token={token:{colorPrimary:'#6c63ff',fontFamily:'Open Sans'}}
 
 ReactDOM.render(
-    <ConfigProvider prefixCls="h2g" iconPrefixCls="h2gIcons">
+    <ConfigProvider  theme={token} virtual={true} prefixCls="h2g" iconPrefixCls="h2gIcons" componentSize="large" >
         <Provider store={store}>
             <Suspense fallback={<Suspence />}>
                 <Router basepath="/">

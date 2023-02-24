@@ -22,13 +22,7 @@ export const userSlice = createSlice({
         isLoggedin: true,
         ...action.payload
       }
-    },
-    updateAgentsList: (state, action) => {
-      return {
-        ...state,
-        agents: action.payload
-      }
-    },
+    }
   },
 })
 // Action creators are generated for each case reducer function

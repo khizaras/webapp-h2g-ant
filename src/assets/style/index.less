@@ -1,22 +1,103 @@
 body {
     font-family: 'Open Sans', sans-serif;
+
 }
 
 section.h2g-layout.webapp {
-    header.h2g-layout-header {
-        flex: 0 1 auto;
+    background-color: inherit !important;
+    
+    header.h2g-layout-header {             
+        box-shadow: 0 0 30px 0 #6c63ff7a;
+        background-color: #fff;
+        padding: 0;   
+        .header-container {
+            display: flex;            
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            .logo {
+                margin-right: 50px;
+                flex-grow: 0;
+            }
+
+            .menu-container {
+                flex-grow: 1;
+                .h2g-menu-horizontal{
+                    background-color: inherit !important;
+                    border: 0;
+                    .h2g-menu-item-selected{
+                        color: #fff !important;
+                    }
+                    .h2g-menu-item {
+                         
+                        color: #6c63ff;
+                    }
+                }
+            }
+
+            .user-container {}
+        }
+    }
+    section.secondary-menu {       
+        .secondary-menu-container {
+            li.h2g-menu-item{
+                font-size: 16px;
+                line-height: 70px;
+                font-weight: 900;
+            }
+          
+        }
+    }
+
+    main.h2g-layout-content {
+       
+      
+        .site-layout-content{
+            min-height: 100vh !important;
+            padding: 0 ;           
+            background: #fff;
+            min-height: 380px;
+            .banner{               
+                .items{}
+            }
+        }
+
+    }
+}
+
+
+@media screen and (max-width: 4000px) {
+    .header-container, .secondary-menu-container, main.h2g-layout-content {
+        width: 1600px;
+        margin: 0 auto;
+        position: relative;
+    }
+    
+
+    
+}
+
+@media screen and (max-width: 500px ) {
+    .header-container {
+        width: calc(100% - 10px);        
+        margin: 0 auto;
+        position: relative;
         padding: 0 10px;
-        align-items: center;
-        justify-content: space-between;
-        .logo {           
-            flex: 0 1  auto;            
-            img {
-                width: 100%;
+        .logo{
+            width: calc(100% - 200px);
+            img{
+                width: 150px;
                 height: 100%;
             }
         }
-        .menu-container{           
-            flex: 1 0  auto;
+        .menu-container{
+            width: calc(100% - 50px);
+         
+        }
+        .user-container{
+            width: calc(100% - 100px);
         }
     }
+
+    
 }
