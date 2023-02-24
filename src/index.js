@@ -12,6 +12,7 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { useDispatch } from 'react-redux';
 import { updateUser } from './store/reducers/user';
 import { getAuth } from "firebase/auth";
+import H2GAddListings from './pages/addListings';
 const { Content, Footer } = Layout;
 
 const Hands2GetherMain = () => {
@@ -39,6 +40,7 @@ const Hands2GetherMain = () => {
                 <Router>
                     <H2GHomePage path="/" />
                     <H2GLoginPage path="/login" />
+                    <H2GAddListings path="/addListings/:category" />
                 </Router>
             </Content>
             <Footer style={{ textAlign: 'center' }}>

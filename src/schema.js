@@ -1,5 +1,6 @@
-const categories = {
-    "name": "Food",
+export const categories = [{
+    "name": "food",
+    "label": "Food",
     "icon": "https://cdn-icons-png.flaticon.com/512/2776/2776827.png",
     "visible": true,
     "attributres": [
@@ -8,19 +9,23 @@ const categories = {
             "placeholder": "Title",
             "type": "text",
             "maxLength": 100,
+            "required": true,
             "visible": true
         },
         {
             "name": "description",
             "placeholder": "Brief Description",
             "type": "textarea",
+            "required": true,
             "maxLength": 250,
             "visible": true
         },
         {
-            "name": "type",
+            "name": "whatType",
             "placeholder": "Choose Listing Type",
             "type": "select",
+            "required": true,
+            "visible": true,
             "options": [
                 {
                     "label": "Wanted Help Listing",
@@ -36,6 +41,7 @@ const categories = {
             "name": "foodType",
             "placeholder": "Food Preference (veg/non-veg)",
             "type": "select",
+            "required": true,
             "options": [
                 {
                     "label": "Veg",
@@ -47,7 +53,7 @@ const categories = {
                 }
             ],
             "visible": true
-                           
+
         },
         {
             "name": "quantity",
@@ -74,7 +80,7 @@ const categories = {
                     "label": "USA",
                     "value": "usa"
                 }
-            ]
+            ],
             "visible": true
         },
         {
@@ -118,7 +124,7 @@ const categories = {
         {
             "name": "displayContact",
             "placeholder": "Display Contact Details",
-            "type": "boolean",            
+            "type": "boolean",
             "visible": true
         },
         {
@@ -132,6 +138,8 @@ const categories = {
             "placeholder": "Contact Number",
             "type": "number",
             "visible": true
-        },        
-    ]
+        },
+    ],
+    images: 3
 }
+]

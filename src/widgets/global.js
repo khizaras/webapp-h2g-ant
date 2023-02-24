@@ -1,3 +1,4 @@
+import {categories} from '../schema'
 class AppGlobal {
 
     constructor() {
@@ -5,7 +6,8 @@ class AppGlobal {
            firestore:null,
            auth:null,
            analytics:null,
-           user:null
+           user:null,
+           schema:categories
         }
     }
 

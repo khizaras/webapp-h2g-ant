@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { loginWithEmailAndPassword } from '../api/users'
 import { updateUser } from '../store/reducers/user'
+import {navigate} from '@gatsbyjs/reach-router'
 import './login.less'
 
 const H2GLoginPage = () => {
@@ -59,6 +60,7 @@ const LoginPage = () => {
         loginWithEmailAndPassword(email, password).then((user) => {
             window.firebase.user = user
             dispatch(updateUser(user))
+            navigate('/')
         }).catch((error) => {
             setState({
                 login: false,

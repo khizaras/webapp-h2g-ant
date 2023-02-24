@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { Avatar, Layout, Space, Typography, Menu, Dropdown, Button } from 'antd';
-import { UserOutlined, HomeOutlined, UnorderedListOutlined } from '@ant-design/icons';
+import { UserOutlined, HomeOutlined, UnorderedListOutlined, PlusOutlined } from '@ant-design/icons';
 import logo from '../assets/images/logo.png'
 import { useSelector } from 'react-redux';
-import { navigate } from '@gatsbyjs/reach-router';
+import { Link, navigate } from '@gatsbyjs/reach-router';
 import { useDispatch } from 'react-redux';
 import { updateUser } from '../store/reducers/user';
 import { getAuth } from "firebase/auth";
@@ -43,12 +43,17 @@ const H2GPrimaryHeader = () => {
     const menuItems = [
         {
             key: 'home',
-            label: <div><HomeOutlined style={{ fontSize: 20 }} /> Home</div>,
+            label: <Link to="/"><HomeOutlined style={{ fontSize: 20 }} /> Home</Link>,
             url: '/',
         },
         {
             key: 'categories',
-            label: <div><UnorderedListOutlined style={{ fontSize: 20 }} /> Categries</div>,
+            label: <Link to="/"><UnorderedListOutlined style={{ fontSize: 20 }} /> Categries</Link>,
+            url: '/categories',
+        },
+        {
+            key: 'addListings',
+            label: <Link to='/addListings/food'><PlusOutlined style={{ fontSize: 20 }} /> Add Listings</Link>,
             url: '/categories',
         }
     ]
