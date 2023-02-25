@@ -59,6 +59,7 @@ export const categories = [{
             "name": "quantity",
             "placeholder": "Quantity",
             "type": "number",
+            "required": true,
             "visible": true
         },
         {
@@ -124,7 +125,17 @@ export const categories = [{
         {
             "name": "displayContact",
             "placeholder": "Display Contact Details",
-            "type": "boolean",
+            "type": "select",
+            "options": [
+                {
+                    "label": "Yes",
+                    "value": "true"
+                },
+                {
+                    "label": "No",
+                    "value": "false"
+                }
+            ],
             "visible": true
         },
         {
