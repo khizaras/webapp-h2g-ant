@@ -7,6 +7,7 @@ import banner2 from '../assets/images/illustrations/eating.svg'
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { getFirestore, collection, addDoc, doc, setDoc } from "firebase/firestore";
 import { useSelector } from 'react-redux';
+import moment from 'moment-timezone';
 
 
 const H2GAddListings = (props) => {
@@ -55,8 +56,11 @@ const H2GAddListings = (props) => {
         let insertData= { 
             id: docRef.id, 
             ...values, 
+            category:category,
             createdBy: user.uid,
             createdOn: new Date().toISOString(),         
+            timeStamp:moment().unix(),
+            expires:moment().add(90,'days').unix(),
             images:images   
         }     
         setDoc(docRef, { ...insertData}).then((data) => {

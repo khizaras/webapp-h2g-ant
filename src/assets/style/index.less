@@ -26,18 +26,21 @@ section.h2g-layout.webapp {
         background-color: #fff;
         padding: 0;   
         .header-container {
-            display: flex;            
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
+            padding: 0 10px;
+            .logo-container{
+                img{
+                    width: 100% ;
+                }
+            }
             .logo {
                 margin-right: 50px;
                 flex-grow: 0;
             }
 
             .menu-container {
-                flex-grow: 1;
+                //flex-grow: 1;
                 .h2g-menu-horizontal{
+                   
                     background-color: inherit !important;
                     border: 0;
                     .h2g-menu-item-selected{
@@ -82,38 +85,13 @@ section.h2g-layout.webapp {
 }
 
 
-@media screen and (max-width: 4000px) {
+@media (min-width: 1700px){
     .header-container, .secondary-menu-container, main.h2g-layout-content {
         width: 1600px;
         margin: 0 auto;
         position: relative;
     }
     
-
-    
-}
-
-@media screen and (max-width: 500px ) {
-    .header-container {
-        width: calc(100% - 10px);        
-        margin: 0 auto;
-        position: relative;
-        padding: 0 10px;
-        .logo{
-            width: calc(100% - 200px);
-            img{
-                width: 150px;
-                height: 100%;
-            }
-        }
-        .menu-container{
-            width: calc(100% - 50px);
-         
-        }
-        .user-container{
-            width: calc(100% - 100px);
-        }
-    }
 
     
 }

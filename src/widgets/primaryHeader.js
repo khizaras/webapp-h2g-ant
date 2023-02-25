@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { Avatar, Layout, Space, Typography, Menu, Dropdown, Button } from 'antd';
-import { UserOutlined, HomeOutlined, UnorderedListOutlined, PlusOutlined } from '@ant-design/icons';
+import { Avatar, Layout, Space, Typography, Menu, Dropdown, Button, Row, Col } from 'antd';
+import { UserOutlined, HomeOutlined, UnorderedListOutlined, PlusOutlined, MenuOutlined } from '@ant-design/icons';
 import logo from '../assets/images/logo.png'
 import { useSelector } from 'react-redux';
 import { Link, navigate } from '@gatsbyjs/reach-router';
@@ -61,10 +61,49 @@ const H2GPrimaryHeader = () => {
 
         <Header style={{ position: 'sticky', top: 0, zIndex: 1, width: '100%' }} >
             <section className='header-container'>
-                <div className="logo" >
+                <Row gutter={16} justify='space-between'>
+                    <Col lg={4} xl={4} xxl={4} md={6} xs={10} sm={10} className="logo-container" >
+                        <img src={logo} />
+                    </Col>
+
+                    <Col lg={12} xl={12} xxl={12} md={12} xs={6} sm={6} >
+
+                        <div className='menu-container'>
+                            <Menu
+                                theme="dark"
+                                mode="horizontal"
+                                defaultSelectedKeys={['home']}
+                                items={menuItems}
+                                expandIcon={< MenuOutlined/>}
+                                
+                            />
+                        </div>
+                    </Col>
+
+                    <Col lg={4} xl={4} xxl={4} md={6} xs={4} sm={4}  >
+                        {logedIn ?
+                            <Dropdown menu={{ items: dropdownItems }} >
+                                <a>
+
+
+                                    {user.photoURL ? <Avatar size={40} src={user.photoURL} /> :
+                                        <Avatar size={40} icon={<UserOutlined />} />
+                                    }
+                                    
+
+                                    </a>
+
+                            </Dropdown>
+                            :
+                            <Button onClick={() => navigate("/login")} type='link'>Signin</Button>
+                        }
+                    </Col>
+                </Row>
+                {/* <div className="logo" >
                     <img src={logo} height={45} />
                 </div>
-                <div className='menu-container'><Menu
+                <div className='menu-container'>
+                <Menu
                     theme="dark"
                     mode="horizontal"
                     defaultSelectedKeys={['home']}
@@ -86,12 +125,12 @@ const H2GPrimaryHeader = () => {
                         :
                         <Button onClick={() => navigate("/login")} type='link'>Signin</Button>
                     }
-                </div>
+                </div> */}
             </section>
         </Header>
-          
 
-   
+
+
     )
 }
 
