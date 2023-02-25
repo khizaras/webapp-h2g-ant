@@ -4,15 +4,20 @@ import { UploadOutlined, PlusOutlined, LoadingOutlined } from '@ant-design/icons
 import { Link } from '@gatsbyjs/reach-router';
 import './addListings.less'
 import banner2 from '../assets/images/illustrations/eating.svg'
-import { getStorage, ref, uploadBytesResumable } from "firebase/storage";
+import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { getFirestore, collection, addDoc, doc, setDoc } from "firebase/firestore";
+import { useSelector } from 'react-redux';
+
 
 const H2GAddListings = (props) => {
+    const user=useSelector(state=>state.user)
     const { category } = props
     const { schema } = window.firebase
     const selectedCategory = schema.find((cat) => cat.name === category) || schema[0]
     const [docRef, setdocRef] = useState(null)
+    const [images,setImages]=useState([])
     const db = getFirestore();
+
     const [form] = Form.useForm()
     useEffect(() => {
         getReference()
@@ -41,17 +46,22 @@ const H2GAddListings = (props) => {
         console.log({ errorInfo });
     }
     const getReference = async () => {
-        const collectionRef = collection(db, 'foods');        
+        const collectionRef = collection(db, category || 'food');        
         const docRef = doc(collectionRef);        
        
         setdocRef(docRef)
     }
     const saveListings = (values) => {
-        let insertData= { uuid: docRef.id, ...values }
-     
-        setDoc(docRef, { id: docRef.id, ...values }).then((docRef) => {
+        let insertData= { 
+            id: docRef.id, 
+            ...values, 
+            createdBy: user.uid,
+            createdOn: new Date().toISOString(),         
+            images:images   
+        }     
+        setDoc(docRef, { ...insertData}).then((data) => {
             console.log("Document written with ID: ");
-            console.log({ docRef });
+            console.log({data});
             notification.success({
                 message: 'Listing Added Successfully',
                 description: 'Your listing has been added successfully.'
@@ -106,6 +116,8 @@ const H2GAddListings = (props) => {
                                                     return (
                                                         <Col span={field.name == 'title' || field.name == 'description' ? 24 : 8} key={index}  >
                                                             <Form.Item
+                                                                
+                                                                tooltip={field.help || null}
                                                                 hidden={!field.visible}
                                                                 key={index}
                                                                 label={field.placeholder}
@@ -128,7 +140,7 @@ const H2GAddListings = (props) => {
                                                 <Typography.Title level={4}>Upload Images</Typography.Title>
                                                 <Row gutter={16} style={{ margin: '30px 0' }}>
                                                     <Col span={24}>
-                                                        <ImageUpload docRef={docRef} />
+                                                        <ImageUpload docRef={docRef} images={images} setImages={setImages} />
                                                     </Col>
                                                 </Row>
                                             </Col>
@@ -201,21 +213,29 @@ const beforeUpload = (file) => {
     return isJpgOrPng && isLt2M;
 };
 
-const uploadToFirebaseStorage = (file, folderName = "images") => {
+const uploadToFirebaseStorage = (file, folderName = "images",images=[],setImages) => {
     const storage = getStorage();
     const metadata = {
         contentType: file.type
     };
     const storageRef = ref(storage, `${folderName}/${file.name}`);
-    uploadBytesResumable(storageRef, file, metadata)
-}
+    
+    uploadBytesResumable(storageRef, file, metadata).then((snapshot) => {
+        getDownloadURL(storageRef).then((url) => {
+            let currImage=images.concat(url)
+            console.log({ currImage });
+            setImages(currImage)
+        })
+    })
 
-const ImageUpload = ({ docRef }) => {
+}   
+
+const ImageUpload = ({ docRef, images, setImages }) => {
     const [fileList, setFileList] = useState([]);
     let folderName = docRef.id
     const onChange = (info) => {
         setFileList(info.fileList);
-        uploadToFirebaseStorage(info.file.originFileObj, folderName)
+        uploadToFirebaseStorage(info.file.originFileObj, folderName, images, setImages)
     };
     const onPreview = async (file) => {
         let src = file.url;
